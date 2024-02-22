@@ -1,5 +1,5 @@
 import kaboom from "kaboom";
-const FLOOR_HEIGHT = 48;
+const FLOOR_HEIGHT = 120;
 const JUMP_FORCE = 800;
 const SPEED = 480;
 
@@ -9,13 +9,12 @@ kaboom();
 // load assets
 loadSprite("bean", "sprites/bean.png");
 
-scene("game", () => {
-
+scene("game", () => { //game scene
+	setBackground(color(0,0,0))
     // define gravity
     setGravity(1600);
-
-    // add a game object to screen
-    const player = add([
+    
+    const player = add([ // add a game object to screen
         // list of components
         sprite("bean"),
         pos(80, 40),
@@ -23,8 +22,7 @@ scene("game", () => {
         body(),
     ]);
 
-    // floor
-    add([
+    add([ // floor
         rect(width(), FLOOR_HEIGHT),
         outline(4),
         pos(0, height()),
@@ -34,7 +32,7 @@ scene("game", () => {
         color(127, 200, 255),
     ]);
 
-    function jump() {
+    function jump() { //jump function
         if (player.isGrounded()) {
             player.jump(JUMP_FORCE);
         }
@@ -45,9 +43,7 @@ scene("game", () => {
     onClick(jump);
 
     function spawnTree() {
-
-        // add tree obj
-        add([
+        add([ // add tree object
             rect(48, rand(32, 96)),
             area(),
             outline(4),
@@ -58,9 +54,7 @@ scene("game", () => {
             "tree",
         ]);
 
-        // wait a random amount of time to spawn next tree
-        wait(rand(0.5, 1.5), spawnTree);
-
+        wait(rand(0.5, 1.5), spawnTree); // wait a random amount of time to spawn next tree
     }
 
     // start spawning trees
@@ -85,13 +79,11 @@ scene("game", () => {
     // increment score every frame
     onUpdate(() => {
         score++;
-        scoreLabel.text = score;
+        scoreLabel.text = `Your score: ${score}`;
     });
-
 });
 
-scene("lose", (score) => {
-
+scene("lose", (score) => { //lose scene
     add([
         sprite("bean"),
         pos(width() / 2, height() / 2 - 80),
@@ -99,9 +91,8 @@ scene("lose", (score) => {
         anchor("center"),
     ]);
 
-    // display score
-    add([
-        text(score),
+    add([ // display score
+        text(`Your score: ${score}`),
         pos(width() / 2, height() / 2 + 80),
         scale(2),
         anchor("center"),
@@ -110,7 +101,6 @@ scene("lose", (score) => {
     // go back to game with space is pressed
     onKeyPress("space", () => go("game"));
     onClick(() => go("game"));
-
 });
 
 go("game");
