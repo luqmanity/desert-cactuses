@@ -1,10 +1,14 @@
-# Folder structure
+# Basic Kaboom.js Platformer
+
+I was just following the tutorial, made some minor changes of myself to get used to this.
+
+## Folder structure
 
 - `src` - source code for your kaboom project
 - `www` - distribution folder, contains your index.html, built js bundle and static assets
 
 
-## Development
+### Development
 
 ```sh
 $ npm run dev
@@ -12,7 +16,7 @@ $ npm run dev
 
 will start a dev server at http://localhost:8000
 
-## Distribution
+### Distribution
 
 ```sh
 $ npm run build
