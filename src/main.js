@@ -1,13 +1,14 @@
 import kaboom from "kaboom";
 const FLOOR_HEIGHT = 120;
-const JUMP_FORCE = 800;
-const SPEED = 480;
+const JUMP_FORCE = 1000;
+const SPEED = 500;
 
 // initialize context
 kaboom();
 
 // load assets
-loadSprite("bean", "sprites/bean.png");
+loadSprite("player", "sprites/player.png");
+loadSprite("cactus", "sprites/cactus.png")
 
 scene("game", () => { //game scene
 	setBackground(color(0,0,0))
@@ -16,7 +17,7 @@ scene("game", () => { //game scene
     
     const player = add([ // add a game object to screen
         // list of components
-        sprite("bean"),
+        sprite("player"),
         pos(80, 40),
         area(),
         body(),
@@ -29,7 +30,7 @@ scene("game", () => { //game scene
         anchor("botleft"),
         area(),
         body({ isStatic: true }),
-        color(127, 200, 255),
+        color(212, 216, 129),
     ]);
 
     function jump() { //jump function
@@ -42,26 +43,24 @@ scene("game", () => { //game scene
     onKeyPress("space", jump);
     onClick(jump);
 
-    function spawnTree() {
+    function spawnCactus() {
         add([ // add tree object
-            rect(48, rand(32, 96)),
+			sprite("cactus"),
             area(),
-            outline(4),
             pos(width(), height() - FLOOR_HEIGHT),
             anchor("botleft"),
-            color(255, 180, 255),
             move(LEFT, SPEED),
-            "tree",
+            "cactus",
         ]);
 
-        wait(rand(0.5, 1.5), spawnTree); // wait a random amount of time to spawn next tree
+        wait(rand(0.75, 2.25), spawnCactus); // wait a random amount of time to spawn next cactus
     }
 
-    // start spawning trees
-    spawnTree();
+    // start spawning cactus
+    spawnCactus();
 
-    // lose if player collides with any game obj with tag "tree"
-    player.onCollide("tree", () => {
+    // lose if player collides with any game obj with tag "cactus"
+    player.onCollide("cactus", () => {
         // go to "lose" scene and pass the score
         go("lose", score);
         burp();
@@ -85,7 +84,7 @@ scene("game", () => { //game scene
 
 scene("lose", (score) => { //lose scene
     add([
-        sprite("bean"),
+        sprite("player"),
         pos(width() / 2, height() / 2 - 80),
         scale(2),
         anchor("center"),
