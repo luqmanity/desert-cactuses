@@ -1,21 +1,28 @@
 import kaboom from "kaboom";
+
+// initialise constants
 const FLOOR_HEIGHT = 120;
 const JUMP_FORCE = 1000;
 const SPEED = 500;
 
-// initialize context
+// initialise context
 kaboom();
 
 // load assets
 loadSprite("player", "sprites/player.png");
 loadSprite("cactus", "sprites/cactus.png")
 
-scene("game", () => { //game scene
-	setBackground(color(0,0,0))
+// main game scene
+scene("game", () => {
+    setBackground(color(0,0,0))
+
+
     // define gravity
     setGravity(1600);
-    
-    const player = add([ // add a game object to screen
+
+
+    // add a game object to screen
+    const player = add([
         // list of components
         sprite("player"),
         pos(80, 40),
@@ -23,7 +30,8 @@ scene("game", () => { //game scene
         body(),
     ]);
 
-    add([ // floor
+    // floor
+    add([
         rect(width(), FLOOR_HEIGHT),
         outline(4),
         pos(0, height()),
@@ -33,7 +41,8 @@ scene("game", () => { //game scene
         color(212, 216, 129),
     ]);
 
-    function jump() { //jump function
+    // jump function
+    function jump() {
         if (player.isGrounded()) {
             player.jump(JUMP_FORCE);
         }
@@ -45,7 +54,7 @@ scene("game", () => { //game scene
 
     function spawnCactus() {
         add([ // add tree object
-			sprite("cactus"),
+            sprite("cactus"),
             area(),
             pos(width(), height() - FLOOR_HEIGHT),
             anchor("botleft"),
