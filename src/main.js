@@ -53,7 +53,7 @@ scene("game", () => { //game scene
             "cactus",
         ]);
 
-        wait(rand(0.75, 2.25), spawnCactus); // wait a random amount of time to spawn next cactus
+        wait(rand(1.00, 3.25), spawnCactus); // wait a random amount of time to spawn next cactus
     }
 
     // start spawning cactus
